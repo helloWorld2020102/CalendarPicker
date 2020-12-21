@@ -223,6 +223,7 @@ export default class CalendarPicker extends Component {
 
     const {
       allowRangeSelection,
+      avoidType,
       allowBackwardRangeSelect,
       enableDateChange,
       onDateChange,
@@ -233,6 +234,14 @@ export default class CalendarPicker extends Component {
     }
 
     const date = moment({ year, month, day, hour: 12 });
+
+    /**
+     * Accept date changing with Date only.
+     */
+    if(allowRangeSelection && avoidType) {
+      onDateChange(date);
+      return;
+    }
 
     if (allowRangeSelection && prevSelectedStartDate && !prevSelectedEndDate) {
       if (date.isSameOrAfter(prevSelectedStartDate, 'day')) {
